@@ -1,1 +1,1 @@
-# Gerador-de-cita-es
+# Gerador de citações
