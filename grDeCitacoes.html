@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Citações Aleatórias</title>
+
+<style>
+
+    body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+#quote-container {
+    width: 80%;
+    max-width: 600px;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+#quote {
+    font-size: 24px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#author {
+    font-size: 20px;
+    margin-bottom: 40px;
+    font-style: italic;
+    color: #555;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Faz o botão aumentar ligeiramente */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2); /* Adiciona uma sombra para dar profundidade */
+}
+
+
+</style>
+
+</head>
+<body>
+    <div id="quote-container">
+        <p id="quote">Citação aparecerá aqui</p>
+        <p id="author">- Autor</p>
+        <button onclick="generateQuote()">Nova Citação</button>
+    </div>
+
+    <!--JS-->
+<script>
+const quotes = [
+    { quote: "O sucesso não é final, o fracasso não é fatal: é a coragem de continuar que conta.", author: "Winston Churchill" },
+    { quote: "A vida é 10% o que acontece comigo e 90% de como eu reajo a isso.", author: "Charles R. Swindoll" },
+    { quote: "Não vá por onde o caminho pode levar, vá por onde não há caminho e deixe um rastro.", author: "Ralph Waldo Emerson" },
+    { quote: "Duas estradas divergiam em uma madeira, e eu – eu peguei a menos percorrida, e isso fez toda a diferença.", author: "Robert Frost" },
+    { quote: "O único homem que nunca comete erros é o homem que nunca faz nada.", author: "Theodore Roosevelt" },
+    { quote: "Um investimento em conhecimento paga o melhor interesse.", author: "Benjamin Franklin" },
+    { quote: "O que você faz fala tão alto que eu não consigo ouvir o que você diz.", author: "Ralph Waldo Emerson" },
+    { quote: "Sonhe grande e ouse falhar.", author: "Norman Vaughan" },
+    { quote: "A melhor hora para plantar uma árvore foi há 20 anos. A segunda melhor hora é agora.", author: "Provérbio Chinês" },
+    { quote: "Eu não falhei. Acabei de encontrar 10.000 maneiras que não funcionam.", author: "Thomas Edison" },
+    { quote: "A vida é o que acontece enquanto você está ocupado fazendo outros planos.", author: "John Lennon" },
+    { quote: "O único modo de fazer um excelente trabalho é amar o que você faz.", author: "Steve Jobs" },
+    { quote: "A maior glória em viver reside não em nunca cair, mas em nos levantarmos cada vez que caímos.", author: "Nelson Mandela" },
+    { quote: "A verdadeira sabedoria está em saber que você não sabe nada.", author: "Sócrates" },
+    { quote: "Tudo tem beleza, mas nem todos veem.", author: "Confúcio" },
+    { quote: "Para ser insubstituível, deve-se sempre ser diferente.", author: "Coco Chanel" },
+    { quote: "O que não te mata te faz mais forte.", author: "Friedrich Nietzsche" },
+    { quote: "Não é o mais forte da espécie que sobrevive, nem o mais inteligente, mas o que melhor responde às mudanças.", author: "Charles Darwin" },
+    { quote: "A felicidade não é algo pronto. Ela vem de suas próprias ações.", author: "Dalai Lama" },
+    { quote: "O futuro pertence àqueles que acreditam na beleza de seus sonhos.", author: "Eleanor Roosevelt" },
+    { quote: "Você deve ser a mudança que deseja ver no mundo.", author: "Mahatma Gandhi" },
+    { quote: "O único limite para a nossa realização de amanhã serão as nossas dúvidas de hoje.", author: "Franklin D. Roosevelt" },
+    { quote: "Faça o que você pode, com o que você tem, onde você estiver.", author: "Theodore Roosevelt" },
+    { quote: "O otimista vê oportunidade em cada dificuldade.", author: "Winston Churchill" },
+    { quote: "Você perde 100% dos tiros que não dá.", author: "Wayne Gretzky" },
+    { quote: "Eu escolho fazer o resto da minha vida a melhor parte da minha vida.", author: "Louise Hay" },
+    { quote: "Se você olhar para o que você tem na vida, você sempre terá mais.", author: "Oprah Winfrey" },
+    { quote: "Paz começa com um sorriso.", author: "Madre Teresa" },
+    { quote: "A vida é uma aventura ousada ou nada.", author: "Helen Keller" },
+    { quote: "O único verdadeiro fracasso é não tentar.", author: "Provérbio" },
+    // Adicione mais citações conforme desejado
+];
+
+let lastQuoteIndex = -1; // Inicializa com -1 para garantir que qualquer índice seja válido na primeira execução
+
+function generateQuote() {
+    const quoteContainer = document.getElementById('quote-container');
+    quoteContainer.classList.add('fade-out');
+
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        while (randomIndex === lastQuoteIndex) {
+            randomIndex = Math.floor(Math.random() * quotes.length);
+        }
+
+        const quote = quotes[randomIndex].quote;
+        const author = quotes[randomIndex].author;
+
+        document.getElementById('quote').textContent = `"${quote}"`;
+        document.getElementById('author').textContent = `- ${author}`;
+        lastQuoteIndex = randomIndex;
+
+        quoteContainer.classList.remove('fade-out');
+    }, 500); // Este valor deve corresponder à duração da transição no CSS
+}
+
+</script>    
+    
+</body>
+</html>
